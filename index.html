@@ -239,58 +239,33 @@ ${desc}
 
 document.getElementById("pimg").src=img;
 
+if(!watchHistory.includes(title)){
 watchHistory.push(title);
 localStorage.setItem("history",JSON.stringify(watchHistory));
 }
-
-function closePopup(){
-document.getElementById("popup").style.display="none";
 }
+<script>
 
-function addToList(title){
-if(!myList.includes(title)){
-myList.push(title);
-localStorage.setItem("myList",JSON.stringify(myList));
-alert("Added to My List ❤️");
-}
-}
+let myList = JSON.parse(localStorage.getItem("myList")) || [];
+let watchHistory = JSON.parse(localStorage.getItem("history")) || [];
 
-function randomPick(){
-let all=[];
-data.forEach(c=>all.push(...c.items));
-let pick=all[Math.floor(Math.random()*all.length)];
-openPopup(pick.name,pick.desc,pick.img);
-}
-    function openProfile(){
-document.getElementById("profile").style.display="block";
+const data = [ ... ];
 
-let html="<h3>❤️ My List</h3>";
+function render(){ ... }
+function openPopup(){ ... }
+function closePopup(){ ... }
+function addToList(){ ... }
+function randomPick(){ ... }
+function openProfile(){ ... }
+function closeProfile(){ ... }
 
-myList.forEach(name=>{
-html+=`<p>🎬 ${name}</p>`;
-});
+document.getElementById("search").addEventListener(...);
 
-html+="<h3>👀 Watch History</h3>";
+setInterval(...);
 
-watchHistory.forEach(name=>{
-html+=`<p>▶ ${name}</p>`;
-});
+render();
 
-document.getElementById("mylist").innerHTML=html;
-}
-
-function closeProfile(){
-document.getElementById("profile").style.display="none";
-}
-
-document.getElementById("search").addEventListener("input",e=>{
-let val=e.target.value.toLowerCase();
-
-document.querySelectorAll(".card").forEach(card=>{
-card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
-});
-});
-
+</script>
 /* 🔥 FEATURED AUTO CHANGE */
 setInterval(()=>{
 let all=[];
@@ -300,8 +275,6 @@ document.getElementById("featured").innerText="🔥 Now Trending: "+pick.name;
 },4000);
 
 render();
-
-</script>
 
 </body>
 </html>
