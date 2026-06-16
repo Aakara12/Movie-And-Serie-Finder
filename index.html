@@ -214,7 +214,66 @@ items: [
 }
 ];
 
-function render() {
+ function getImage(title) {
+
+const images = {
+
+"Stranger Things":"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+"Pretty Little Liars":"https://image.tmdb.org/t/p/w500/7y9x.jpg",
+"Vampire Diaries":"https://image.tmdb.org/t/p/w500/2x7a.jpg",
+"Gossip Girl":"https://image.tmdb.org/t/p/w500/1a8b.jpg",
+
+"Breaking Bad":"https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+"Money Heist":"https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg",
+"Dark":"https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
+"Ozark":"https://image.tmdb.org/t/p/w500/pCGy7.jpg",
+"The Witcher":"https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
+
+"Avengers: Endgame":"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+"Spider-Man: No Way Home":"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+"John Wick":"https://image.tmdb.org/t/p/w500/5vHssUeVe25bMrof1HyaPyWgaP.jpg",
+"The Batman":"https://image.tmdb.org/t/p/w500/seyWFgGv3Q8Z3d28Mf0YqW7q.jpg",
+"Inception":"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+"Fast & Furious":"https://image.tmdb.org/t/p/w500/2dtC5LZg.jpg",
+"Mission: Impossible – Fallout":"https://image.tmdb.org/t/p/w500/AkJQpZp9WoNdj7p.jpg",
+"Mad Max: Fury Road":"https://image.tmdb.org/t/p/w500/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg",
+
+"Harry Potter":"https://image.tmdb.org/t/p/w500/8X6U7qX7x.jpg",
+"The Lord of the Rings":"https://image.tmdb.org/t/p/w500/9xtH1RmAzQ0rrMBNUMXstb8r2PP.jpg",
+"The Hobbit":"https://image.tmdb.org/t/p/w500/x8GxLZ58X.jpg",
+"Avatar":"https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
+"The Hunger Games":"https://image.tmdb.org/t/p/w500/yX7.jpg",
+"Pirates of the Caribbean":"https://image.tmdb.org/t/p/w500/7I2.jpg",
+
+"Superbad":"https://image.tmdb.org/t/p/w500/ibq.jpg",
+"The Hangover":"https://image.tmdb.org/t/p/w500/ul1.jpg",
+"Deadpool":"https://image.tmdb.org/t/p/w500/y95.jpg",
+"Home Alone":"https://image.tmdb.org/t/p/w500/9v2.jpg",
+"Jumanji: Welcome to the Jungle":"https://image.tmdb.org/t/p/w500/33w.jpg",
+
+"Frozen":"https://image.tmdb.org/t/p/w500/j1p.jpg",
+"Toy Story":"https://image.tmdb.org/t/p/w500/7G.jpg",
+"Inside Out":"https://image.tmdb.org/t/p/w500/pbX.jpg",
+"Spider-Man: Into the Spider-Verse":"https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+"Minions":"https://image.tmdb.org/t/p/w500/q0.jpg",
+
+"Naruto":"https://image.tmdb.org/t/p/w500/vB8.jpg",
+"Attack on Titan":"https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
+"Demon Slayer":"https://image.tmdb.org/t/p/w500/x.jpg",
+"One Piece":"https://image.tmdb.org/t/p/w500/y.jpg",
+"Death Note":"https://image.tmdb.org/t/p/w500/z.jpg",
+
+"Jujutsu Kaisen":"https://image.tmdb.org/t/p/w500/1.jpg",
+"Tokyo Ghoul":"https://image.tmdb.org/t/p/w500/2.jpg",
+"Bleach":"https://image.tmdb.org/t/p/w500/3.jpg",
+"Chainsaw Man":"https://image.tmdb.org/t/p/w500/4.jpg",
+"Hunter x Hunter":"https://image.tmdb.org/t/p/w500/5.jpg"
+};
+
+return images[title] || "https://image.tmdb.org/t/p/w500/6u.jpg";
+}   
+
+    function render() {
 let container = document.getElementById("content");
 container.innerHTML = "";
 
