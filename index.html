@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie & Series Finder</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: #1e293b;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+button {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎬 Movie & Series Finder</h1>
+    <p>Valitse fiilis ja saat suosituksen</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>😂 Hauska</h2>
+        <button onclick="randomPick('funny')">Saa suositus</button>
+    </div>
+
+    <div class="card">
+        <h2>😱 Jännittävä</h2>
+        <button onclick="randomPick('scary')">Saa suositus</button>
+    </div>
+
+    <div class="card">
+        <h2>❤️ Romantiikka</h2>
+        <button onclick="randomPick('romance')">Saa suositus</button>
+    </div>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+const movies = {
+    funny: [
+        "The Mask",
+        "Superbad",
+        "Brooklyn Nine-Nine",
+        "Home Alone"
+    ],
+    scary: [
+        "Conjuring",
+        "IT",
+        "Stranger Things",
+        "Halloween"
+    ],
+    romance: [
+        "The Notebook",
+        "Titanic",
+        "To All the Boys I've Loved Before",
+        "La La Land"
+    ]
+};
+
+function randomPick(category) {
+    const list = movies[category];
+    const random = list[Math.floor(Math.random() * list.length)];
+    document.getElementById("result").innerHTML =
+        "👉 Suosittelen: <b>" + random + "</b>";
+}
+</script>
+
+</body>
+</html>
