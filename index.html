@@ -7,58 +7,87 @@
 
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f1a;
+    color: white;
 }
 
 header {
-    text-align: center;
     padding: 20px;
-    background: #1e293b;
+    text-align: center;
+    background: #111827;
 }
 
 h1 {
     margin: 0;
+    color: #e50914;
 }
 
-.container {
+.category {
+    margin: 20px;
+}
+
+.category h2 {
+    margin-left: 10px;
+}
+
+.row {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    gap: 20px;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
 }
 
 .card {
-    background: #1e293b;
-    padding: 15px;
-    width: 250px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    min-width: 150px;
+    background: #1f2937;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: scale(1.08);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.card p {
+    margin: 8px;
+    font-size: 14px;
+}
+
+/* POPUP */
+#popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.popup-content {
+    background: #111827;
+    width: 80%;
+    max-width: 500px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 button {
     padding: 10px;
-    margin-top: 10px;
     border: none;
-    border-radius: 8px;
+    background: #e50914;
+    color: white;
     cursor: pointer;
-    background: #38bdf8;
-    color: black;
-    font-weight: bold;
-}
-
-button:hover {
-    background: #0ea5e9;
-}
-
-#result {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 18px;
+    border-radius: 5px;
 }
 </style>
 </head>
@@ -67,57 +96,329 @@ button:hover {
 
 <header>
     <h1>🎬 Movie & Series Finder</h1>
-    <p>Valitse fiilis ja saat suosituksen</p>
 </header>
 
-<div class="container">
-
-    <div class="card">
-        <h2>😂 Hauska</h2>
-        <button onclick="randomPick('funny')">Saa suositus</button>
-    </div>
-
-    <div class="card">
-        <h2>😱 Jännittävä</h2>
-        <button onclick="randomPick('scary')">Saa suositus</button>
-    </div>
-
-    <div class="card">
-        <h2>❤️ Romantiikka</h2>
-        <button onclick="randomPick('romance')">Saa suositus</button>
-    </div>
-
+<!-- ANIME -->
+<div class="category">
+<h2>🌍 Anime</h2>
+<div class="row">
+<div class="card" onclick="openPopup('Naruto', 'Ninja-seikkailu Konohasta.')">
+<img src="https://via.placeholder.com/150x220">
+<p>Naruto</p>
 </div>
 
-<div id="result"></div>
+<div class="card" onclick="openPopup('Attack on Titan', 'Ihmiskunta vs titaanit.')">
+<img src="https://via.placeholder.com/150x220">
+<p>Attack on Titan</p>
+</div>
+</div>
+</div>
+
+<!-- SCI-FI -->
+<div class="category">
+<h2>🧠 Sci-Fi</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Interstellar', 'Avaruusmatka ihmiskunnan pelastamiseksi.')">
+<img src="https://via.placeholder.com/150x220">
+<p>Interstellar</p>
+</div>
+
+<div class="card" onclick="openPopup('The Matrix', 'Todellisuus ei ole sitä miltä näyttää.')">
+<img src="https://via.placeholder.com/150x220">
+<p>The Matrix</p>
+</div>
+
+</div>
+</div>
+
+<!-- ACTION -->
+<div class="category">
+<h2>🔥 Toiminta</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('John Wick', 'Yksi mies vs rikollismaailma.')">
+<img src="https://via.placeholder.com/150x220">
+<p>John Wick</p>
+</div>
+
+<div class="card" onclick="openPopup('Fast & Furious', 'Autot, perhe ja toiminta.')">
+<img src="https://via.placeholder.com/150x220">
+<p>Fast & Furious</p>
+</div>
+
+</div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+    <div class="popup-content">
+        <h2 id="title"></h2>
+        <p id="desc"></p>
+        <button onclick="closePopup()">Sulje</button>
+    </div>
+</div>
 
 <script>
-const movies = {
-    funny: [
-        "The Mask",
-        "Superbad",
-        "Brooklyn Nine-Nine",
-        "Home Alone"
-    ],
-    scary: [
-        "Conjuring",
-        "IT",
-        "Stranger Things",
-        "Halloween"
-    ],
-    romance: [
-        "The Notebook",
-        "Titanic",
-        "To All the Boys I've Loved Before",
-        "La La Land"
-    ]
-};
+function openPopup(title, desc) {
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("title").innerText = title;
+    document.getElementById("desc").innerText = desc;
+}
 
-function randomPick(category) {
-    const list = movies[category];
-    const random = list[Math.floor(Math.random() * list.length)];
-    document.getElementById("result").innerHTML =
-        "👉 Suosittelen: <b>" + random + "</b>";
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Finder</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f1a;
+    color: white;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    background: #111827;
+}
+
+h1 {
+    margin: 0;
+    color: #e50914;
+}
+
+.category {
+    margin: 20px;
+}
+
+.category h2 {
+    margin-left: 10px;
+}
+
+.row {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 10px;
+}
+
+.card {
+    min-width: 160px;
+    background: #1f2937;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.08);
+}
+
+.card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.card p {
+    margin: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* POPUP */
+#popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+}
+
+.popup-content {
+    background: #111827;
+    width: 90%;
+    max-width: 500px;
+    margin: 8% auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-content img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #e50914;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎬 Movie & Series Finder</h1>
+</header>
+
+<!-- ANIME -->
+<div class="category">
+<h2>🌍 Anime</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Naruto','Ninja-seikkailu Konohasta','https://image.tmdb.org/t/p/w500/yX5u3ZrV7xgq0k0k0k0k.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/yX5u3ZrV7xgq0k0k0k0k.jpg">
+<p>Naruto</p>
+</div>
+
+<div class="card" onclick="openPopup('Attack on Titan','Ihmiskunta vs titaanit','https://image.tmdb.org/t/p/w500/ai0XQZ.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/ai0XQZ.jpg">
+<p>Attack on Titan</p>
+</div>
+
+</div>
+</div>
+
+<!-- SCI-FI -->
+<div class="category">
+<h2>🧠 Sci-Fi</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Interstellar','Avaruusmatka','https://image.tmdb.org/t/p/w500/rAiYTf.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/rAiYTf.jpg">
+<p>Interstellar</p>
+</div>
+
+<div class="card" onclick="openPopup('The Matrix','Todellisuus ei ole todellista','https://image.tmdb.org/t/p/w500/f89U3.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/f89U3.jpg">
+<p>The Matrix</p>
+</div>
+
+</div>
+</div>
+
+<!-- ACTION -->
+<div class="category">
+<h2>🔥 Toiminta</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('John Wick','Yksi mies vs maailma','https://image.tmdb.org/t/p/w500/34P8.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/34P8.jpg">
+<p>John Wick</p>
+</div>
+
+<div class="card" onclick="openPopup('Fast & Furious','Autot ja perhe','https://image.tmdb.org/t/p/w500/k7T9x.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/k7T9x.jpg">
+<p>Fast & Furious</p>
+</div>
+
+</div>
+</div>
+
+<!-- MARVEL -->
+<div class="category">
+<h2>🦸 Marvel</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Avengers: Endgame','Marvel huipentuma','https://image.tmdb.org/t/p/w500/or06.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/or06.jpg">
+<p>Avengers: Endgame</p>
+</div>
+
+<div class="card" onclick="openPopup('Spider-Man: No Way Home','Spider-Man tarina','https://image.tmdb.org/t/p/w500/5we.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/5we.jpg">
+<p>Spider-Man</p>
+</div>
+
+</div>
+</div>
+
+<!-- ROMANCE -->
+<div class="category">
+<h2>❤️ Romantiikka</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Titanic','Rakkaustarina','https://image.tmdb.org/t/p/w500/9xj.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/9xj.jpg">
+<p>Titanic</p>
+</div>
+
+<div class="card" onclick="openPopup('The Notebook','Klassinen rakkaus','https://image.tmdb.org/t/p/w500/gc9.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/gc9.jpg">
+<p>The Notebook</p>
+</div>
+
+</div>
+</div>
+
+<!-- DRAMA -->
+<div class="category">
+<h2>🎭 Draama</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Breaking Bad','Kemisti rikollisuudessa','https://image.tmdb.org/t/p/w500/3o7.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/3o7.jpg">
+<p>Breaking Bad</p>
+</div>
+
+</div>
+</div>
+
+<!-- ADVENTURE -->
+<div class="category">
+<h2>🧭 Seikkailu / fantasia</h2>
+<div class="row">
+
+<div class="card" onclick="openPopup('Harry Potter','Velhomaailma','https://image.tmdb.org/t/p/w500/8b.jpg')">
+<img src="https://image.tmdb.org/t/p/w500/8b.jpg">
+<p>Harry Potter</p>
+</div>
+
+</div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+    <div class="popup-content">
+        <img id="pimg">
+        <h2 id="ptitle"></h2>
+        <p id="pdesc"></p>
+        <button onclick="closePopup()">Sulje</button>
+    </div>
+</div>
+
+<script>
+function openPopup(title, desc, img) {
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("ptitle").innerText = title;
+    document.getElementById("pdesc").innerText = desc;
+    document.getElementById("pimg").src = img;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
 }
 </script>
 
