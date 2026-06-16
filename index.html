@@ -3,181 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie & Series Finder</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0f1a;
-    color: white;
-}
-
-header {
-    padding: 20px;
-    text-align: center;
-    background: #111827;
-}
-
-h1 {
-    margin: 0;
-    color: #e50914;
-}
-
-.category {
-    margin: 20px;
-}
-
-.category h2 {
-    margin-left: 10px;
-}
-
-.row {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    padding: 10px;
-}
-
-.card {
-    min-width: 150px;
-    background: #1f2937;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-align: center;
-}
-
-.card:hover {
-    transform: scale(1.08);
-}
-
-.card img {
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-}
-
-.card p {
-    margin: 8px;
-    font-size: 14px;
-}
-
-/* POPUP */
-#popup {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-}
-
-.popup-content {
-    background: #111827;
-    width: 80%;
-    max-width: 500px;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-button {
-    padding: 10px;
-    border: none;
-    background: #e50914;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>🎬 Movie & Series Finder</h1>
-</header>
-
-<!-- ANIME -->
-<div class="category">
-<h2>🌍 Anime</h2>
-<div class="row">
-<div class="card" onclick="openPopup('Naruto', 'Ninja-seikkailu Konohasta.')">
-<img src="https://via.placeholder.com/150x220">
-<p>Naruto</p>
-</div>
-
-<div class="card" onclick="openPopup('Attack on Titan', 'Ihmiskunta vs titaanit.')">
-<img src="https://via.placeholder.com/150x220">
-<p>Attack on Titan</p>
-</div>
-</div>
-</div>
-
-<!-- SCI-FI -->
-<div class="category">
-<h2>🧠 Sci-Fi</h2>
-<div class="row">
-
-<div class="card" onclick="openPopup('Interstellar', 'Avaruusmatka ihmiskunnan pelastamiseksi.')">
-<img src="https://via.placeholder.com/150x220">
-<p>Interstellar</p>
-</div>
-
-<div class="card" onclick="openPopup('The Matrix', 'Todellisuus ei ole sitä miltä näyttää.')">
-<img src="https://via.placeholder.com/150x220">
-<p>The Matrix</p>
-</div>
-
-</div>
-</div>
-
-<!-- ACTION -->
-<div class="category">
-<h2>🔥 Toiminta</h2>
-<div class="row">
-
-<div class="card" onclick="openPopup('John Wick', 'Yksi mies vs rikollismaailma.')">
-<img src="https://via.placeholder.com/150x220">
-<p>John Wick</p>
-</div>
-
-<div class="card" onclick="openPopup('Fast & Furious', 'Autot, perhe ja toiminta.')">
-<img src="https://via.placeholder.com/150x220">
-<p>Fast & Furious</p>
-</div>
-
-</div>
-</div>
-
-<!-- POPUP -->
-<div id="popup">
-    <div class="popup-content">
-        <h2 id="title"></h2>
-        <p id="desc"></p>
-        <button onclick="closePopup()">Sulje</button>
-    </div>
-</div>
-
-<script>
-function openPopup(title, desc) {
-    document.getElementById("popup").style.display = "block";
-    document.getElementById("title").innerText = title;
-    document.getElementById("desc").innerText = desc;
-}
-
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Finder</title>
 
 <style>
@@ -420,6 +245,103 @@ function openPopup(title, desc, img) {
 function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
+</script>
+
+</body>
+</html>
+<script>
+const data = [
+{
+category: "🌍 Anime",
+items: [
+{title:"Naruto", desc:"A ninja adventure story.", img:"https://image.tmdb.org/t/p/w500/yV1.jpg"},
+{title:"Attack on Titan", desc:"Humanity fights Titans.", img:"https://image.tmdb.org/t/p/w500/ai0.jpg"}
+]
+},
+{
+category: "🧠 Sci-Fi",
+items: [
+{title:"Interstellar", desc:"A journey through space and time.", img:"https://image.tmdb.org/t/p/w500/rAi.jpg"},
+{title:"The Matrix", desc:"Reality is not real.", img:"https://image.tmdb.org/t/p/w500/f89.jpg"}
+]
+},
+{
+category: "🔥 Action",
+items: [
+{title:"John Wick", desc:"One man vs the world.", img:"https://image.tmdb.org/t/p/w500/34P.jpg"},
+{title:"Fast & Furious", desc:"Family and cars.", img:"https://image.tmdb.org/t/p/w500/k7T.jpg"}
+]
+},
+{
+category: "🦸 Marvel",
+items: [
+{title:"Avengers: Endgame", desc:"Marvel finale.", img:"https://image.tmdb.org/t/p/w500/or06.jpg"},
+{title:"Spider-Man", desc:"A young hero story.", img:"https://image.tmdb.org/t/p/w500/5w.jpg"}
+]
+},
+{
+category: "😂 Comedy",
+items: [
+{title:"Superbad", desc:"Teen chaos.", img:"https://image.tmdb.org/t/p/w500/1a.jpg"},
+{title:"The Office", desc:"Office humor.", img:"https://image.tmdb.org/t/p/w500/2b.jpg"}
+]
+},
+{
+category: "❤️ Romance",
+items: [
+{title:"Titanic", desc:"Love and tragedy.", img:"https://image.tmdb.org/t/p/w500/9x.jpg"},
+{title:"The Notebook", desc:"Classic love story.", img:"https://image.tmdb.org/t/p/w500/gc9.jpg"}
+]
+}
+];
+
+function render() {
+let container = document.getElementById("content");
+container.innerHTML = "";
+
+data.forEach(section => {
+let html = `<div class="category"><h2>${section.category}</h2><div class="row">`;
+
+section.items.forEach(item => {
+html += `
+<div class="card" onclick="openPopup('${item.title}','${item.desc}','${item.img}')">
+<img src="${item.img}">
+<p>${item.title}</p>
+</div>
+`;
+});
+
+html += "</div></div>";
+container.innerHTML += html;
+});
+}
+
+function openPopup(title, desc, img) {
+document.getElementById("popup").style.display = "block";
+document.getElementById("ptitle").innerText = title;
+document.getElementById("pdesc").innerText = desc;
+document.getElementById("pimg").src = img;
+}
+
+function closePopup() {
+document.getElementById("popup").style.display = "none";
+}
+
+function randomPick() {
+let all = [];
+data.forEach(c => all.push(...c.items));
+let pick = all[Math.floor(Math.random()*all.length)];
+openPopup(pick.title, pick.desc, pick.img);
+}
+
+document.getElementById("search").addEventListener("input", function(e){
+let val = e.target.value.toLowerCase();
+document.querySelectorAll(".card").forEach(card => {
+card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+});
+});
+
+render();
 </script>
 
 </body>
