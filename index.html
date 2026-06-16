@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie & Series Finder 2.0</title>
+<title>Movie & Series Finder</title>
 
 <style>
 body {
@@ -13,14 +13,14 @@ body {
     color: white;
 }
 
-<header>
-    <div class="logo">🎬 Movie Finder 2.0</div>
-
-    <div style="display:flex; align-items:center; gap:10px;">
-        <input id="search" placeholder="Search movies & series...">
-        <button onclick="randomPick()">🎲 Random</button>
-    </div>
-</header>
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #111827;
+}
 
 .logo {
     color: #e50914;
@@ -28,11 +28,17 @@ body {
     font-weight: bold;
 }
 
+.top {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 input {
     padding: 8px;
     border-radius: 5px;
     border: none;
-    width: 220px;
+    width: 240px;
 }
 
 button {
@@ -42,19 +48,16 @@ button {
     padding: 8px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 5px;
 }
 
-/* FEATURED */
 .featured {
-    height: 250px;
-    background: linear-gradient(to right, #111, #222);
+    height: 220px;
+    background: linear-gradient(90deg,#111,#222);
     display: flex;
     align-items: center;
     padding: 20px;
 }
 
-/* CATEGORY */
 .category {
     margin: 20px;
 }
@@ -66,17 +69,16 @@ button {
     padding: 10px;
 }
 
-/* CARD */
 .card {
     min-width: 160px;
     background: #1f2937;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .card:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .card img {
@@ -91,30 +93,28 @@ button {
     margin: 8px;
 }
 
-/* POPUP */
 #popup {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background: rgba(0,0,0,0.85);
 }
 
 .popup-content {
-    background: #111827;
-    width: 90%;
-    max-width: 500px;
-    margin: 8% auto;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    background:#111827;
+    max-width:500px;
+    margin:8% auto;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
 }
 
 .popup-content img {
-    width: 100%;
-    border-radius: 10px;
+    width:100%;
+    border-radius:10px;
 }
 </style>
 </head>
@@ -122,18 +122,18 @@ button {
 <body>
 
 <header>
-    <div class="logo">🎬 Movie Finder 2.0</div>
+    <div class="logo">🎬 Movie Finder</div>
 
-    <div>
-        <input id="search" placeholder="Search...">
+    <div class="top">
+        <input id="search" placeholder="Search movies & series...">
         <button onclick="randomPick()">🎲 Random</button>
     </div>
 </header>
 
 <div class="featured">
     <div>
-        <h2>🔥 Featured Picks</h2>
-        <p>Find your next movie or series</p>
+        <h2 id="featured">🔥 Featured Picks</h2>
+        <p>Netflix-style movie finder</p>
     </div>
 </div>
 
@@ -148,111 +148,74 @@ button {
         <button onclick="closePopup()">Close</button>
     </div>
 </div>
-<script>
 const data = [
 {
 category: "🌍 Anime",
 items: [
-"Naruto","Attack on Titan","Demon Slayer","One Piece","Death Note",
-"Jujutsu Kaisen","Tokyo Ghoul","Bleach","Chainsaw Man","Hunter x Hunter",
-"Spy x Family","Fullmetal Alchemist"
+{name:"Naruto", img:"https://image.tmdb.org/t/p/w500/vB8.jpg", desc:"Ninja adventure story."},
+{name:"Attack on Titan", img:"https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg", desc:"Humans vs Titans."},
+{name:"Demon Slayer", img:"https://image.tmdb.org/t/p/w500/x.jpg", desc:"Demon hunting story."},
+{name:"One Piece", img:"https://image.tmdb.org/t/p/w500/y.jpg", desc:"Pirate adventure."},
+{name:"Death Note", img:"https://image.tmdb.org/t/p/w500/z.jpg", desc:"Deadly notebook."}
 ]
 },
 {
 category: "🧠 Sci-Fi",
 items: [
-"Interstellar","The Matrix","Tenet","Blade Runner 2049","Gravity",
-"The Martian","Arrival","Ex Machina","Black Mirror"
+{name:"Interstellar", img:"https://image.tmdb.org/t/p/w500/rAi.jpg", desc:"Space time journey."},
+{name:"The Matrix", img:"https://image.tmdb.org/t/p/w500/f89.jpg", desc:"Simulation world."},
+{name:"Tenet", img:"https://image.tmdb.org/t/p/w500/a.jpg", desc:"Time inversion."},
+{name:"Blade Runner 2049", img:"https://image.tmdb.org/t/p/w500/b.jpg", desc:"Future world."}
 ]
 },
 {
-category: "🔥 Action / Thriller",
+category: "🔥 Action",
 items: [
-"Avengers: Endgame","Spider-Man: No Way Home","John Wick","The Batman",
-"Inception","Fast & Furious","Mission: Impossible – Fallout","Mad Max: Fury Road",
-"The Dark Knight","Die Hard"
+{name:"John Wick", img:"https://image.tmdb.org/t/p/w500/5vHssUeVe25bMrof1HyaPyWgaP.jpg", desc:"Revenge action."},
+{name:"Fast & Furious", img:"https://image.tmdb.org/t/p/w500/2dtC5LZg.jpg", desc:"Cars & action."},
+{name:"Mission: Impossible – Fallout", img:"https://image.tmdb.org/t/p/w500/AkJQpZp9WoNdj7p.jpg", desc:"Spy missions."},
+{name:"The Batman", img:"https://image.tmdb.org/t/p/w500/seyWFgGv3Q8Z3d28Mf0YqW7q.jpg", desc:"Dark hero."}
 ]
 },
 {
-category: "🦸 Marvel / Superheroes",
+category: "🦸 Marvel",
 items: [
-"Black Panther","Doctor Strange","Thor: Ragnarok","Guardians of the Galaxy",
-"Justice League","Man of Steel","Captain America: Civil War","Iron Man",
-"Venom","Aquaman","Loki","The Boys","Wednesday"
+{name:"Avengers: Endgame", img:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg", desc:"Final battle."},
+{name:"Spider-Man: No Way Home", img:"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg", desc:"Multiverse."},
+{name:"Iron Man", img:"https://image.tmdb.org/t/p/w500/78l.jpg", desc:"Hero start."},
+{name:"Doctor Strange", img:"https://image.tmdb.org/t/p/w500/abcd.jpg", desc:"Magic world."}
 ]
 },
 {
 category: "😂 Comedy",
 items: [
-"Superbad","The Hangover","Deadpool","Home Alone","Jumanji",
-"Friends","How I Met Your Mother","Brooklyn Nine-Nine","The Office",
-"Modern Family","White Chicks","Mean Girls","21 Jump Street","Ted"
+{name:"Superbad", img:"https://image.tmdb.org/t/p/w500/ibq.jpg", desc:"Teen chaos."},
+{name:"The Office", img:"https://image.tmdb.org/t/p/w500/2b.jpg", desc:"Office life."},
+{name:"Friends", img:"https://image.tmdb.org/t/p/w500/3c.jpg", desc:"Friend group."}
 ]
 },
 {
 category: "❤️ Romance",
 items: [
-"The Notebook","Titanic","La La Land","To All the Boys I've Loved Before",
-"After","Crazy Rich Asians","Gossip Girl","Vampire Diaries"
+{name:"Titanic", img:"https://image.tmdb.org/t/p/w500/9x.jpg", desc:"Love story."},
+{name:"The Notebook", img:"https://image.tmdb.org/t/p/w500/gc9.jpg", desc:"Romance classic."}
 ]
 },
 {
-category: "🎭 Drama / Thriller",
+category: "🎭 Drama",
 items: [
-"Stranger Things","Pretty Little Liars","Vampire Diaries","Gossip Girl",
-"Breaking Bad","Money Heist","Dark","Ozark","The Witcher",
-"Prison Break","Dexter","Peaky Blinders","Sherlock","Mindhunter"
+{name:"Breaking Bad", img:"https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg", desc:"Drug empire."},
+{name:"Stranger Things", img:"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg", desc:"Mystery town."}
 ]
 },
 {
-category: "🧭 Adventure / Fantasy",
+category: "🧭 Adventure",
 items: [
-"Harry Potter","The Lord of the Rings","The Hobbit","Avatar",
-"The Hunger Games","Pirates of the Caribbean","Shrek","Madagascar",
-"Kung Fu Panda","Moana","Frozen","Luca","Coco"
+{name:"Harry Potter", img:"https://image.tmdb.org/t/p/w500/8X6U7qX7x.jpg", desc:"Wizard world."},
+{name:"The Lord of the Rings", img:"https://image.tmdb.org/t/p/w500/9xtH1RmAzQ0rrMBNUMXstb8r2PP.jpg", desc:"Epic journey."}
 ]
 }
 ];
-
-function getImage(title) {
-
-const clean = title.trim();
-
-const images = {
-"Stranger Things":"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-"Pretty Little Liars":"https://image.tmdb.org/t/p/w500/7y9x.jpg",
-"Vampire Diaries":"https://image.tmdb.org/t/p/w500/2x7a.jpg",
-"Gossip Girl":"https://image.tmdb.org/t/p/w500/1a8b.jpg",
-
-"Breaking Bad":"https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-"Money Heist":"https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg",
-"Dark":"https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
-"Ozark":"https://image.tmdb.org/t/p/w500/pCGy7.jpg",
-"The Witcher":"https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
-
-"Avengers: Endgame":"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-"Spider-Man: No Way Home":"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-"John Wick":"https://image.tmdb.org/t/p/w500/5vHssUeVe25bMrof1HyaPyWgaP.jpg",
-"The Batman":"https://image.tmdb.org/t/p/w500/seyWFgGv3Q8Z3d28Mf0YqW7q.jpg",
-"Inception":"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-
-"Harry Potter":"https://image.tmdb.org/t/p/w500/8X6U7qX7x.jpg",
-"The Lord of the Rings":"https://image.tmdb.org/t/p/w500/9xtH1RmAzQ0rrMBNUMXstb8r2PP.jpg",
-"The Hobbit":"https://image.tmdb.org/t/p/w500/x8GxLZ58X.jpg",
-
-"Superbad":"https://image.tmdb.org/t/p/w500/ibq.jpg",
-"The Hangover":"https://image.tmdb.org/t/p/w500/ul1.jpg",
-"Deadpool":"https://image.tmdb.org/t/p/w500/y95.jpg",
-"Home Alone":"https://image.tmdb.org/t/p/w500/9v2.jpg",
-
-"Naruto":"https://image.tmdb.org/t/p/w500/vB8.jpg",
-"Attack on Titan":"https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
-"Death Note":"https://image.tmdb.org/t/p/w500/z.jpg",
-"One Piece":"https://image.tmdb.org/t/p/w500/y.jpg"
-};
-
-return images[clean] || "https://image.tmdb.org/t/p/w500/6u.jpg";
-}
     function render() {
 let container = document.getElementById("content");
 container.innerHTML = "";
@@ -262,12 +225,10 @@ let html = `<div class="category"><h2>${section.category}</h2><div class="row">`
 
 section.items.forEach(item => {
 
-let img = getImage(item);
-
 html += `
-<div class="card" onclick="openPopup('${item}','Great movie or series to watch!','${img}')">
-<img src="${img}">
-<p>${item}</p>
+<div class="card" onclick="openPopup('${item.name}','${item.desc}','${item.img}')">
+<img src="${item.img}">
+<p>${item.name}</p>
 </div>
 `;
 });
@@ -277,37 +238,6 @@ container.innerHTML += html;
 });
 }
 
-/* 🎬 KUVAHAKU (SIMULOITU NETFLIX STYLE) */
-function getImage(title) {
-
-const images = {
-"Stranger Things":"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-"Breaking Bad":"https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-"Money Heist":"https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg",
-"Dark":"https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
-"The Witcher":"https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
-
-"Avengers: Endgame":"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-"Spider-Man: No Way Home":"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-"John Wick":"https://image.tmdb.org/t/p/w500/5vHssUeVe25bMrof1HyaPyWgaP.jpg",
-"The Batman":"https://image.tmdb.org/t/p/w500/seyWFgGv3Q8Z3d28Mf0YqW7q.jpg",
-"Inception":"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-
-"Harry Potter":"https://image.tmdb.org/t/p/w500/8X6U7qX7x.jpg",
-"The Lord of the Rings":"https://image.tmdb.org/t/p/w500/9xtH1RmAzQ0rrMBNUMXstb8r2PP.jpg",
-"The Hobbit":"https://image.tmdb.org/t/p/w500/x8GxLZ58X.jpg",
-"Avatar":"https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg"
-};
-
-return images[title] || "https://image.tmdb.org/t/p/w500/9O7gLzmreU0n.jpg";
-}
-
-html += "</div></div>";
-container.innerHTML += html;
-});
-}
-
-/* POPUP */
 function openPopup(title, desc, img) {
 document.getElementById("popup").style.display = "block";
 document.getElementById("ptitle").innerText = title;
@@ -318,37 +248,31 @@ document.getElementById("pimg").src = img;
 function closePopup() {
 document.getElementById("popup").style.display = "none";
 }
-
-/* RANDOM */
-function randomPick() {
+    function randomPick() {
 let all = [];
 data.forEach(c => all.push(...c.items));
 
 let pick = all[Math.floor(Math.random()*all.length)];
-openPopup(pick, "🔥 Random pick just for you!", "https://via.placeholder.com/300x450");
+openPopup(pick.name, pick.desc, pick.img);
 }
 
-/* SEARCH */
-document.getElementById("search").addEventListener("input", function(e){
+/* 🔥 FEATURED YLLÄTYS */
+setInterval(() => {
+let all = [];
+data.forEach(c => all.push(...c.items));
+
+let pick = all[Math.floor(Math.random()*all.length)];
+document.getElementById("featured").innerText = "🔥 " + pick.name;
+}, 4000);
+
+/* 🔍 SEARCH */
+document.getElementById("search").addEventListener("input", e => {
 let val = e.target.value.toLowerCase();
 
 document.querySelectorAll(".card").forEach(card => {
 card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
 });
 });
-
-let featured = [
-"Stranger Things",
-"Interstellar",
-"Avengers: Endgame",
-"Naruto",
-"Breaking Bad"
-];
-
-setInterval(() => {
-let pick = featured[Math.floor(Math.random()*featured.length)];
-document.querySelector(".featured h2").innerText = "🔥 " + pick;
-}, 4000);
 
 render();
 </script>
