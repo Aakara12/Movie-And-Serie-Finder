@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie & Series Finder FINAL</title>
+<title>Movie & Series Finder 2.0</title>
 
 <style>
 body {
@@ -28,17 +28,11 @@ header {
     font-weight: bold;
 }
 
-.top-right {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
 input {
     padding: 8px;
     border-radius: 5px;
     border: none;
-    width: 240px;
+    width: 220px;
 }
 
 button {
@@ -48,16 +42,19 @@ button {
     padding: 8px 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5px;
 }
 
+/* FEATURED */
 .featured {
-    height: 220px;
+    height: 250px;
+    background: linear-gradient(to right, #111, #222);
     display: flex;
     align-items: center;
     padding: 20px;
-    background: linear-gradient(90deg,#111,#222);
 }
 
+/* CATEGORY */
 .category {
     margin: 20px;
 }
@@ -69,16 +66,17 @@ button {
     padding: 10px;
 }
 
+/* CARD */
 .card {
     min-width: 160px;
     background: #1f2937;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .card:hover {
-    transform: scale(1.08);
+    transform: scale(1.1);
 }
 
 .card img {
@@ -93,28 +91,30 @@ button {
     margin: 8px;
 }
 
+/* POPUP */
 #popup {
     display: none;
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,0.85);
 }
 
 .popup-content {
-    background:#111827;
-    max-width:500px;
-    margin:8% auto;
-    padding:20px;
-    border-radius:10px;
-    text-align:center;
+    background: #111827;
+    width: 90%;
+    max-width: 500px;
+    margin: 8% auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .popup-content img {
-    width:100%;
-    border-radius:10px;
+    width: 100%;
+    border-radius: 10px;
 }
 </style>
 </head>
@@ -122,10 +122,10 @@ button {
 <body>
 
 <header>
-    <div class="logo">🎬 Movie Finder FINAL</div>
+    <div class="logo">🎬 Movie Finder 2.0</div>
 
-    <div class="top-right">
-        <input id="search" placeholder="Search movies & series...">
+    <div>
+        <input id="search" placeholder="Search...">
         <button onclick="randomPick()">🎲 Random</button>
     </div>
 </header>
@@ -133,7 +133,7 @@ button {
 <div class="featured">
     <div>
         <h2>🔥 Featured Picks</h2>
-        <p>Best movies & series in one place</p>
+        <p>Find your next movie or series</p>
     </div>
 </div>
 
@@ -148,12 +148,14 @@ button {
         <button onclick="closePopup()">Close</button>
     </div>
 </div>
+<script>
 const data = [
 {
 category: "🌍 Anime",
 items: [
 "Naruto","Attack on Titan","Demon Slayer","One Piece","Death Note",
-"Jujutsu Kaisen","Tokyo Ghoul","Bleach","Chainsaw Man","Hunter x Hunter"
+"Jujutsu Kaisen","Tokyo Ghoul","Bleach","Chainsaw Man","Hunter x Hunter",
+"Spy x Family","Fullmetal Alchemist"
 ]
 },
 {
@@ -164,77 +166,56 @@ items: [
 ]
 },
 {
-category: "🔥 Action",
+category: "🔥 Action / Thriller",
 items: [
-"John Wick","Fast & Furious","Mission: Impossible – Fallout","Mad Max: Fury Road",
-"Inception","The Batman"
+"Avengers: Endgame","Spider-Man: No Way Home","John Wick","The Batman",
+"Inception","Fast & Furious","Mission: Impossible – Fallout","Mad Max: Fury Road",
+"The Dark Knight","Die Hard"
 ]
 },
 {
-category: "🦸 Marvel / Heroes",
+category: "🦸 Marvel / Superheroes",
 items: [
-"Avengers: Endgame","Spider-Man: No Way Home","Iron Man","Doctor Strange",
-"Thor: Ragnarok","Guardians of the Galaxy","Venom","Aquaman","The Boys","Loki"
+"Black Panther","Doctor Strange","Thor: Ragnarok","Guardians of the Galaxy",
+"Justice League","Man of Steel","Captain America: Civil War","Iron Man",
+"Venom","Aquaman","Loki","The Boys","Wednesday"
 ]
 },
 {
 category: "😂 Comedy",
 items: [
 "Superbad","The Hangover","Deadpool","Home Alone","Jumanji",
-"Friends","The Office","Brooklyn Nine-Nine","Modern Family"
+"Friends","How I Met Your Mother","Brooklyn Nine-Nine","The Office",
+"Modern Family","White Chicks","Mean Girls","21 Jump Street","Ted"
 ]
 },
 {
 category: "❤️ Romance",
 items: [
-"Titanic","The Notebook","La La Land","After","Crazy Rich Asians",
-"Gossip Girl","Vampire Diaries"
+"The Notebook","Titanic","La La Land","To All the Boys I've Loved Before",
+"After","Crazy Rich Asians","Gossip Girl","Vampire Diaries"
 ]
 },
 {
 category: "🎭 Drama / Thriller",
 items: [
-"Breaking Bad","Stranger Things","Pretty Little Liars","Money Heist",
-"Dark","Ozark","Peaky Blinders","Prison Break","Sherlock"
+"Stranger Things","Pretty Little Liars","Vampire Diaries","Gossip Girl",
+"Breaking Bad","Money Heist","Dark","Ozark","The Witcher",
+"Prison Break","Dexter","Peaky Blinders","Sherlock","Mindhunter"
 ]
 },
 {
 category: "🧭 Adventure / Fantasy",
 items: [
 "Harry Potter","The Lord of the Rings","The Hobbit","Avatar",
-"The Hunger Games","Pirates of the Caribbean","Frozen","Moana","Shrek"
+"The Hunger Games","Pirates of the Caribbean","Shrek","Madagascar",
+"Kung Fu Panda","Moana","Frozen","Luca","Coco"
 ]
 }
 ];
-    function getImage(title) {
 
-const images = {
-"Stranger Things":"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-"Breaking Bad":"https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-"Money Heist":"https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg",
-"Dark":"https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
-"Ozark":"https://image.tmdb.org/t/p/w500/pCGy7.jpg",
-"The Witcher":"https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
-
-"Avengers: Endgame":"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-"Spider-Man: No Way Home":"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-"John Wick":"https://image.tmdb.org/t/p/w500/5vHssUeVe25bMrof1HyaPyWgaP.jpg",
-"The Batman":"https://image.tmdb.org/t/p/w500/seyWFgGv3Q8Z3d28Mf0YqW7q.jpg",
-"Inception":"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-
-"Harry Potter":"https://image.tmdb.org/t/p/w500/8X6U7qX7x.jpg",
-"The Lord of the Rings":"https://image.tmdb.org/t/p/w500/9xtH1RmAzQ0rrMBNUMXstb8r2PP.jpg",
-"The Hobbit":"https://image.tmdb.org/t/p/w500/x8GxLZ58X.jpg",
-
-"Naruto":"https://image.tmdb.org/t/p/w500/vB8.jpg",
-"Attack on Titan":"https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
-"Death Note":"https://image.tmdb.org/t/p/w500/z.jpg",
-"One Piece":"https://image.tmdb.org/t/p/w500/y.jpg"
-};
-
-return images[title] || "https://image.tmdb.org/t/p/w500/6u.jpg";
-}
-    function render() {
+/* RENDER */
+function render() {
 let container = document.getElementById("content");
 container.innerHTML = "";
 
@@ -242,12 +223,9 @@ data.forEach(section => {
 let html = `<div class="category"><h2>${section.category}</h2><div class="row">`;
 
 section.items.forEach(item => {
-
-let img = getImage(item);
-
 html += `
-<div class="card" onclick="openPopup('${item}','Amazing movie or series','${img}')">
-<img src="${img}">
+<div class="card" onclick="openPopup('${item}','Great movie or series to watch!','https://via.placeholder.com/300x450')">
+<img src="https://via.placeholder.com/300x450">
 <p>${item}</p>
 </div>
 `;
@@ -258,6 +236,7 @@ container.innerHTML += html;
 });
 }
 
+/* POPUP */
 function openPopup(title, desc, img) {
 document.getElementById("popup").style.display = "block";
 document.getElementById("ptitle").innerText = title;
@@ -269,29 +248,37 @@ function closePopup() {
 document.getElementById("popup").style.display = "none";
 }
 
+/* RANDOM */
 function randomPick() {
 let all = [];
 data.forEach(c => all.push(...c.items));
 
 let pick = all[Math.floor(Math.random()*all.length)];
-openPopup(pick, "🔥 Random pick!", getImage(pick));
+openPopup(pick, "🔥 Random pick just for you!", "https://via.placeholder.com/300x450");
 }
 
-/* FEATURE */
-setInterval(() => {
-let all = [];
-data.forEach(c => all.push(...c.items));
-let pick = all[Math.floor(Math.random()*all.length)];
-document.querySelector(".featured h2").innerText = "🔥 " + pick;
-}, 4000);
-
-document.getElementById("search").addEventListener("input", e => {
+/* SEARCH */
+document.getElementById("search").addEventListener("input", function(e){
 let val = e.target.value.toLowerCase();
 
 document.querySelectorAll(".card").forEach(card => {
 card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
 });
 });
+
+/* 🎁 YLLÄTYS: auto featured vaihtuu */
+let featured = [
+"Stranger Things",
+"Interstellar",
+"Avengers: Endgame",
+"Naruto",
+"Breaking Bad"
+];
+
+setInterval(() => {
+let pick = featured[Math.floor(Math.random()*featured.length)];
+document.querySelector(".featured h2").innerText = "🔥 " + pick;
+}, 4000);
 
 render();
 </script>
